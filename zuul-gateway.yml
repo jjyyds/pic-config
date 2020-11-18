@@ -1,0 +1,42 @@
+spring:
+  profiles:
+    active:
+      - dev
+---
+server:
+  port: 9501
+
+eureka:
+  client: # 客户端进行Eureka注册的配置
+    service-url:
+      defaultZone: http://admin:a@eureka1:7301/eureka
+    register-with-eureka: true #注册到eureka中
+  instance:
+    instance-id: BASE-MICROSERVICE-ZUUL-GATEWAY
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 2    #设置心跳间隔时间
+    lease-expiration-duration-in-seconds: 3 # 租约超时时间间隔
+
+spring:
+  profiles: dev
+  security:
+    user:
+      name: admin
+      password: a
+
+#公共前缀
+zuul:
+  routes:
+    user1:
+      path: /user1-proxy/**
+      serviceId: microservice-provider-user
+    user2:        #传统的路由方式
+      path: /user2-proxy/**
+      url: http://localhost:5555/
+    provider:
+      path: /provider-proxy/**
+      serviceId: microservice-provider
+      sensitiveHeaders:
+  ignored-services:
+    "*"
+  prefix: /yc-api    #公共前缀
