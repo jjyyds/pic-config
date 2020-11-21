@@ -27,7 +27,7 @@ eureka:
   client: # 客户端进行Eureka注册的配置
     register-with-eureka: true 
     service-url:
-      defaultZone: http://admin:a@eureka1:7001/eureka,http://admin:a@eureka2:7002/eureka,http://admin:a@eureka3:7003/eureka #授信用户登录
+      defaultZone: http://admin:a@eureka1:7301/eureka #授信用户登录
   instance:
     prefer-ip-address: true 
     instance-id: base-microservice-provider-pics   #实例名
